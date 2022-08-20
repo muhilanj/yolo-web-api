@@ -1,0 +1,51 @@
+[
+    {
+      "property_id": 9,
+      "property_name": "New Property # 9",
+      "total_floor": 3,
+      "category_name": "Single Occupancy",
+      "property_type_id": 1,
+      "property_Type": "Trending",
+      "Property_Loc": "M G Road, Bangalore",
+      "image": "http://cdn.home-designing.com/wp-content/uploads/2014/07/three-bedroom-floor-plans.jpeg",
+      "img_ct": 1,
+      "video_ct": 0
+    },
+    {
+      "property_id": 11,
+      "property_name": "New Property # 11",
+      "total_floor": 3,
+      "category_name": "Triple Occupancy",
+      "property_type_id": 1,
+      "property_Type": "Trending",
+      "Property_Loc": "M G Road, Bangalore",
+      "image": "http://cdn.home-designing.com/wp-content/uploads/2022/05/Brazilian-summer-house.jpg",
+      "img_ct": 1,
+      "video_ct": 0
+    },
+    {
+      "property_id": 2,
+      "property_name": "Eden Garden",
+      "total_floor": 3,
+      "category_name": "Double Occupancy",
+      "property_type_id": 1,
+      "property_Type": "Trending",
+      "Property_Loc": "M G Road, Bangalore",
+      "image": "http://cdn.home-designing.com/wp-content/uploads/2022/05/terazzo-pillar.jpg",
+      "img_ct": 2,
+      "video_ct": 0
+    },
+    {
+      "property_id": 1,
+      "property_name": "Yolo Test",
+      "total_floor": 3,
+      "category_name": "Single Occupancy",
+      "property_type_id": 1,
+      "property_Type": "Trending",
+      "Property_Loc": "M G Road, Bangalore",
+      "image": "http://cdn.home-designing.com/wp-content/uploads/2014/07/three-bedroom-floor-plans.jpeg",
+      "img_ct": 1,
+      "video_ct": 0
+    }
+  ]
+  

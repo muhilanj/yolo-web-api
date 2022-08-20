@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "occupancy_type_id": 1,
+            "occupancy_type": "Any"
+        },
+        {
+            "occupancy_type_id": 2,
+            "occupancy_type": "Family"
+        },
+        {
+            "occupancy_type_id": 3,
+            "occupancy_type": "Boys"
+        },
+        {
+            "occupancy_type_id": 4,
+            "occupancy_type": "Girls"
+        }
+    ]
+}
