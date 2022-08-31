@@ -124,6 +124,21 @@ router.get('/occupancy_types', async (req, res) => {
         res.status(500).json(error);
     }
 });
+router.get('/flat_list', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().input('property_id',req.query.property_id).
+        execute(`get_flat_list`);
+        console.log(result)
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 const _validateSearchRequest = (input)=>{
     const schema = Joi.object().keys({
