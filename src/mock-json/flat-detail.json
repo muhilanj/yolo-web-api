@@ -1,0 +1,17 @@
+{
+    "data": [
+        {
+            "flat_id": 1,
+            "flat_number": "A100",
+            "floor_number": 1,
+            "flat_type": "Small",
+            "flat_size": "8 X 6 Sqft",
+            "category_name": "Single Occupancy",
+            "Property_Loc": "M G Road,Bangalore",
+            "occupancy_type": "Family",
+            "total_Rooms": 0,
+            "Rooms_available": 0,
+            "rooms_oocupied": 0
+        }
+    ]
+}
