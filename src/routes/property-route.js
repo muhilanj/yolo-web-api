@@ -127,7 +127,7 @@ router.get('/occupancy_types', async (req, res) => {
 router.get('/flat_list', async (req, res) => {
     try {
         await pool.connect();
-        const result = await pool.request().input('property_id',req.query.property_id).
+        const result = await pool.request().input('property_id',req.query.id).
         execute(`get_flat_list`);
         console.log(result)
         const homePageResponse = result.recordset;
@@ -142,7 +142,7 @@ router.get('/flat_list', async (req, res) => {
 router.get('/flat_detail', async (req, res) => {
     try {
         await pool.connect();
-        const result = await pool.request().input('flat_id',req.query.flat_id).
+        const result = await pool.request().input('flat_id',req.query.id).
         execute(`get_flat_details`);
         console.log(result)
         const homePageResponse = result.recordset;
