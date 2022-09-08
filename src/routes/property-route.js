@@ -155,6 +155,54 @@ router.get('/flat_detail', async (req, res) => {
     }
 });
 
+router.post('/user_register', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        //const joiResponse = _validateUserRequest(req.body);
+       // console.log(joiResponse)
+        // if(joiResponse.error){
+        //     console.log(req.body)
+        //     throw new Error(`Exception occured in validating User input, ${joiResponse.error}`);
+        // }
+        
+        const result = await pool.request()
+        .input('first_name', req.body.first_name)
+        .input('last_name', req.body.last_name)
+        .input('email', req.body.email)
+        .input('isemail_verified', req.body.isEmailVerified)
+        .input('phone_number', req.body.phone_number)
+        .input('isPhone_verified', req.body.isPhoneVerified)
+        .input('flat_id', req.body.flat_id)
+        .input('password', req.body.password)
+        .execute(`Add_web_Guest`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+
+const _validateUserRequest=()=>{
+    const schema = Joi.object().keys({
+        first_name: Joi.string().optional().allow(null, ''),
+        last_name: Joi.string().optional().allow(null, ''),
+        email: Joi.string().optional().allow(null, ''),
+        isEmailVerified: Joi.number().optional().allow(null, ''),
+        phone_number: Joi.string().optional().allow(null, ''),
+        isPhoneVerified: Joi.number().optional().allow(null, ''),
+        flat_id: Joi.number().optional().allow(null, ''),
+        password: Joi.string().optional().allow(null, ''),
+    });
+
+    return schema.validate(input, {abortEarly: false});
+}
+
+
 const _validateSearchRequest = (input)=>{
     const schema = Joi.object().keys({
         property_name: Joi.string().optional().allow(null, ''),
