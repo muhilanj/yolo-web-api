@@ -2,6 +2,7 @@ const express = require('express')
 const mssql = require('mssql')
 const config = require('../../config/db-config.json')
 const Joi = require('joi');
+const generator = require('generate-password');
 
 const router = express.Router();
 const pool = new mssql.ConnectionPool(config);
@@ -165,6 +166,10 @@ router.post('/user_register', async (req, res) => {
         //     console.log(req.body)
         //     throw new Error(`Exception occured in validating User input, ${joiResponse.error}`);
         // }
+        const password= generator.generate({
+            length: 10,
+            numbers: true
+        });
         
         const result = await pool.request()
         .input('first_name', req.body.first_name)
@@ -174,7 +179,7 @@ router.post('/user_register', async (req, res) => {
         .input('phone_number', req.body.phone_number)
         .input('isPhone_verified', req.body.isPhoneVerified)
         .input('flat_id', req.body.flat_id)
-        .input('password', req.body.password)
+        .input('password',password)
         .execute(`Add_web_Guest`);
         const homePageResponse = result.recordset;
         const response = {
