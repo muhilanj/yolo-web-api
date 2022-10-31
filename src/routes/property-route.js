@@ -23,11 +23,11 @@ router.get('/homepage', async (req, res) => {
 });
 
 router.get('/property_search', async (req, res) => {
-   
     try {
         await pool.connect();
         const result = await pool.request().execute(`Get_Property_Search`);
         const homePageResponse = result.recordset;
+
         const response = {
             data: homePageResponse
         }
@@ -36,6 +36,7 @@ router.get('/property_search', async (req, res) => {
         res.status(500).json(error);
     }
 });
+
 router.post('/property_search_filter', async (req, res) => {
     try {
        
@@ -46,7 +47,6 @@ router.post('/property_search_filter', async (req, res) => {
             console.log(req.body)
             throw new Error(`Exception occured in validating Property search filter input, ${joiResponse.error}`);
         }
-        
         const result = await pool.request()
         .input('proerty_name', req.body.property_name)
         .input('area', req.body.area)

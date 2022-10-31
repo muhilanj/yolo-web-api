@@ -8,7 +8,7 @@ const poolConfig = () => ({
     database: process.env.SQL_DATABASE,
     user: process.env.SQL_UID,
     password: process.env.SQL_PWD,
-    requestTimeout: 300000,// this part worked for me, 10 min timeout
+    requestTimeout: 15000,// this part worked for me, 10 min timeout
     options: {
         encrypt: false,
         enableArithAbort: false
