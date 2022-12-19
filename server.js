@@ -16,10 +16,9 @@ app.get('/health', (req, res) => {
 
 app.use('/api', require('./src/routes/property-route'));
 app.use('/api', require('./src/routes/admin-property-route'));
+app.use('/api', require('./src/routes/vendor-route'));
 
 app.listen(process.env.PORT, () => {
     console.log(`Server started running on ${process.env.PORT} for ${process.env.NODE_ENV}`);
 });
-
-
 
