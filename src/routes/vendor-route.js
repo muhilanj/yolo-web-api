@@ -67,6 +67,7 @@ router.post('/add_vendor_product', async (req, res) => {
     try {
        
         await pool.connect();
+        console.log(req.body)
         const joiResponse = _validateAddVendoRequest(req.body);
         console.log(joiResponse)
         if(joiResponse.error){
@@ -110,6 +111,9 @@ const _validateAddVendoRequest = (input)=>{
         uom: Joi.string().optional().allow(null, ''),
         price: Joi.number().optional().allow(null, ''),
         user_id: Joi.number().optional().allow(null, ''),
+        status: Joi.string().optional().allow(null, ''),
+        image: Joi.string().optional().allow(null, ''),
+        
     });
 
     return schema.validate(input, {abortEarly: false});
