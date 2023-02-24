@@ -1,0 +1,170 @@
+-- exec Add_Role @Role_Name = 'Admin', @Reportiing_Role = '', @userid = 1 - Use this proc for Add Role
+
+-- declare @product Vendor_Product_Order   
+-- insert into @product(Product_ID,  Price_Per_Unit, Quantity)  
+-- values(1, 100.5, 5)  
+--  exec Add_Order @product, @vendor_id = 1, @userid = 1
+-- plz use this proc for Post the order
+
+-- exec Add_Property_Facilities @facility_name = 'Massage', @userid = 1 
+-- exec Delete_Property_Facility @facility_name = 'Massage', @userid = 1
+-- exec Add_Property_Category @Category = 'Five Sharing', @userid = 1 
+-- exec Delete_Category @Category = 'Five Sharing', @userid = 1
+-- exec Add_Room_Facility @facility_name = 'Water Heater', @userid = 1 
+-- exec Delete_Room_Facility @facility_name = 'Water Heater', @userid = 1
+-- exec Add_Room_Type @Room_Type = 'Ultra Large', @Dimension = '20X20', @userid = 1 
+-- exec Delete_Room_Type @Room_Type = 'Ultra Large', @userid = 1
+-- exec Add_User @User_Name = 'Anand', @Email = 'anand@gmail.com', @password = '123456', @phone = '9953776947', 
+-- @role = 'Admin', @Report_To = '', @userid = 1
+-- exec Update_User_Password @userid = 1, @password = '123456'
+
+-- exec Get_User_Details
+-- exec Get_Roles
+
+
+-- API REQUEST AND RESPONSE
+-- METHOD-GET
+-- Route: localhost:3000/api/get_roles
+-- Response:
+-- {
+--     "data": [
+--         {
+--             "Role_name": "Admin",
+--             "Reporting_To": null,
+--             "Total_User": 0
+--         }
+--     ]
+-- }
+-- METHOD-GET
+-- Route: localhost:3000/api/get_user_details
+-- Response:
+-- {
+--     "data": []
+-- }
+
+-- METHOD-POST
+-- Route: localhost:3000/api/add_role
+-- request:
+-- {
+-- 	"role_name":"Admin",
+-- 	"Reportiing_Role":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+
+-- METHOD-POST
+-- Route: localhost:3000/api/add_order
+-- request:
+-- {
+-- 	"products":"Admin",
+-- 	"vendor_id":2,
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+
+-- METHOD-POST
+-- Route: localhost:3000/api/add_property_facilities
+-- REQUEST
+-- {
+-- 	"facility_name":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+
+-- METHOD-DELETE
+-- Route: localhost:3000/api/delete_property_facilities
+-- REQUEST
+-- {
+-- 	"facility_name":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+-- METHOD-POST
+-- Route: localhost:3000/api/add_property_category
+-- REQUEST
+-- {
+-- 	"category":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+-- METHOD-DELETE
+-- Route: localhost:3000/api/delete_category
+-- REQUEST
+-- {
+-- 	"category":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+
+-- METHOD-POST
+-- Route: localhost:3000/api/add_room_facility
+-- REQUEST
+-- {
+-- 	"facility_name":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+
+
+-- METHOD-DELETE
+-- Route: localhost:3000/api/delete_room_facility
+-- REQUEST
+-- {
+-- 	"facility_name":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+
+-- METHOD-POST
+-- Route: localhost:3000/api/add_room_type
+-- REQUEST
+-- {
+-- 	"room_type":"Admin",
+-- 	"dimension:"2020",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+-- METHOD-DELETE
+-- Route: localhost:3000/api/delete_room_type
+-- REQUEST
+-- {
+-- 	"room_type":"Admin",
+-- 	"user_id":2
+-- }
+-- Response:
+-- {}
+-- METHOD-POST
+-- Route: localhost:3000/api/add_user
+-- REQUEST
+-- {
+-- 	"user_name":"Anand",
+-- 	"email":"anand@gmail.com",
+-- 	"password":"123456",
+-- 	"phone":"9953776947",
+-- 	"role":"Admin",
+-- 	"report_to":"",
+-- 	"user_id":1
+-- }
+-- Response:
+-- {}
+
+-- METHOD-PUT
+-- Route: localhost:3000/api/update_user_password
+-- REQUEST
+-- {
+-- 	"password":"123456",
+-- 	"user_id":1
+-- }
+-- Response:
+-- {}
+
+
