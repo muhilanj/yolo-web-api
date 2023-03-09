@@ -22,6 +22,21 @@ router.get('/state', async (req, res) => {
         res.status(500).json(error);
     }
 });
+router.post('/admin_login', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().input('login_id',req.body.login_id).input('password',req.body.login_id).
+        execute(`User_login_details`);
+        const homePageResponse = result.recordset;
+
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 router.get('/country', async (req, res) => {
     try {
         await pool.connect();
@@ -178,6 +193,274 @@ router.post('/add_flat_details', async (req, res) => {
             data: homePageResponse,
             status:200,
             message: 'Succeefully Registered'
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+
+//**Use this proc for Add Role **//
+router.post('/add_role', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('Role_Name', req.body.role_name)
+        .input('Reportiing_Role', req.body.reporting_role)
+        .input('userid', req.body.user_id)
+        .execute(`Add_Role`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for Post the order **//
+router.post('/add_order', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('product', req.body.products)
+        .input('vendor_id', req.body.vendor_id)
+        .input('userid', req.body.user_id)
+        .execute(`Add_Order`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for Post the order **//
+router.post('/add_property_facilities', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('facility_name', req.body.facility_name)
+        .input('userid', req.body.user_id)
+        .execute(`Add_Property_Facilities`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for delete the order **//
+router.delete('/delete_property_facilities', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('facility_name', req.body.facility_name)
+        .input('userid', req.body.user_id)
+        .execute(`Delete_Property_Facility`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for post the order **//
+router.post('/add_property_category', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('Category', req.body.category)
+        .input('userid', req.body.user_id)
+        .execute(`Add_Property_Category`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for dlete the order **//
+router.delete('/delete_category', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('Category', req.body.category)
+        .input('userid', req.body.user_id)
+        .execute(`Delete_Category`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for post the Add_Room_Facility **//
+router.post('/add_room_facility', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('facility_name', req.body.facility_name)
+        .input('userid', req.body.user_id)
+        .execute(`Add_Room_Facility`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for dlete the Delete_Room_Facility **//
+router.delete('/delete_Room_Facility', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('facility_name', req.body.facility_name)
+        .input('userid', req.body.user_id)
+        .execute(`Delete_Room_Facility`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+//**use this proc for post the Add_Room_Type **//
+router.post('/add_room_type', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('Room_Type', req.body.room_type)
+        .input('Dimension', req.body.dimension)
+        .input('userid', req.body.user_id)
+        .execute(`Add_Room_Type`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+/**use this proc for delete the Add_Room_Type **/
+router.delete('/delete_room_type', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('Room_Type', req.body.room_type)
+        .input('userid', req.body.user_id)
+        .execute(`Delete_Room_Type`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+/**use this proc for add the user **/
+router.post('/add_user', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('User_Name', req.body.user_name)
+        .input('Email', req.body.email)
+        .input('password', req.body.password)
+        .input('phone', req.body.phone)
+        .input('role', req.body.role)
+        .input('Report_To', req.body.report_to)
+        .input('userid', req.body.user_id)
+        .execute(`Add_User`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+/**use this proc for add the user **/
+router.put('/update_user_password', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const result = await pool.request()
+        .input('password', req.body.password)
+        .input('userid', req.body.user_id)
+        .execute(`Update_User_Password`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+router.get('/get_user_details', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().
+        execute(`Get_User_Details`);
+        const homePageResponse = result.recordset;
+
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+router.get('/get_roles', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().
+        execute(`Get_Roles`);
+        const homePageResponse = result.recordset;
+
+        const response = {
+            data: homePageResponse
         }
         res.json(response);
     } catch (error) {

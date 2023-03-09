@@ -83,6 +83,7 @@ router.get('/city', async (req, res) => {
     }
 });
 
+
 router.get('/area', async (req, res) => {
     try {
         await pool.connect();
