@@ -467,6 +467,36 @@ router.get('/get_roles', async (req, res) => {
         res.status(500).json(error);
     }
 });
+router.get('/get_vendor_list', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().
+        execute(`Get_Vendor_List`);
+        const homePageResponse = result.recordset;
+
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+router.get('/get_user_list', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().
+        execute(`Get_User_List`);
+        const homePageResponse = result.recordset;
+
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 const _validateFlatDetailsRequest=(input)=>{
     const schema = Joi.object().keys({

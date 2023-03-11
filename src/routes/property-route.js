@@ -157,6 +157,36 @@ router.get('/flat_detail', async (req, res) => {
     }
 });
 
+router.get('/flat_facilities', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().input('flat_id',req.query.id).
+        execute(`get_flat_Property_Facilities`);
+        console.log(result)
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
+router.get('/room_facilities', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().input('flat_id',req.query.id).
+        execute(`get_flat_Facilities`);
+        console.log(result)
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 router.post('/user_register', async (req, res) => {
     try {
        
