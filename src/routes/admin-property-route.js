@@ -69,6 +69,31 @@ router.get('/get_property_facilities', async (req, res) => {
 });
 
 
+router.get('/get_property_list', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().execute(`Get_Property_List`);
+        res.json({
+            data: result.recordset
+        });
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
+
+router.get('/get_admin_dashboard', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request().execute(`get_Admin_dashboard`);
+        res.json({
+            data: result.recordset
+        });
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
+
+
 router.get('/get_room_facilities', async (req, res) => {
    
     try {
