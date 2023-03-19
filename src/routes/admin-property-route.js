@@ -246,26 +246,38 @@ router.post('/add_role', async (req, res) => {
         res.status(500).json(error);
     }
 });
+
 //**use this proc for Post the order **//
 router.post('/add_order', async (req, res) => {
     try {
        
+        let vendor_product = new mssql.Table();
+        vendor_product.columns.add("Product_ID", mssql.Int());
+        vendor_product.columns.add("Price_Per_Unit", mssql.Money());
+        vendor_product.columns.add("Quantity", mssql.Int());
+
+        req.body.products.forEach(product => {
+            vendor_product.rows.add(product.Product_ID, product.Price_Per_Unit, product.Quantity);
+        })
+
         await pool.connect();
         console.log(req.body)
         const result = await pool.request()
-        .input('product', req.body.products)
+        .input('product', vendor_product)
         .input('vendor_id', req.body.vendor_id)
         .input('userid', req.body.user_id)
         .execute(`Add_Order`);
         const homePageResponse = result.recordset;
+        console.log({ result });
         const response = {
-            data: homePageResponse
+            data: result
         }
         res.json(response);
     } catch (error) {
         res.status(500).json(error);
     }
 });
+
 //**use this proc for Post the order **//
 router.post('/add_property_facilities', async (req, res) => {
     try {
