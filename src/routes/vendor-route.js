@@ -37,6 +37,21 @@ router.get('/vendor_products', async (req, res) => {
         res.status(500).json(error);
     }
 });
+router.get('/vendor_orders', async (req, res) => {
+   
+    try {
+        await pool.connect();
+        const result = await pool.request().input('vendor_ID',req.query.vendor_id).
+        execute(`Get_Vendor_Orders`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 router.post('/vendor_login', async (req, res) => {
     try {
