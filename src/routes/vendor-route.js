@@ -21,7 +21,7 @@ router.get('/vendor_dashboard', async (req, res) => {
         res.status(500).json(error);
     }
 });
-router.get('/Get_SKU_List', async (req, res) => {
+router.get('/get_SKU_list', async (req, res) => {
     try {
         await pool.connect();
         const result = await pool.request()
@@ -36,7 +36,7 @@ router.get('/Get_SKU_List', async (req, res) => {
         res.status(500).json(error);
     }
 });
-router.get('/vendor_Sales', async (req, res) => {
+router.get('/vendor_sales', async (req, res) => {
     try {
         await pool.connect();
         const result = await pool.request().input('vendor_id',req.query.vendor_id).
@@ -67,7 +67,7 @@ router.get('/vendor_products', async (req, res) => {
         res.status(500).json(error);
     }
 });
-router.get('/vendor_Dashboard_Products', async (req, res) => {
+router.get('/vendor_dashboard_products', async (req, res) => {
    
     try {
         await pool.connect();
@@ -82,6 +82,46 @@ router.get('/vendor_Dashboard_Products', async (req, res) => {
         res.status(500).json(error);
     }
 });
+//**use this proc for delete the order **//
+router.delete("/delete_vendor_product", async (req, res) => {
+    try {
+      await pool.connect();
+      console.log(req.body);
+      const result = await pool
+        .request()
+        .input("user_id", req.body.user_id)
+        .input("sku_id", req.body.sku_id)
+        .input("vendor_id", req.body.vendor_id)
+        .execute(`Delete_vendor_Product`);
+      const homePageResponse = result.recordset;
+      const response = {
+        data: homePageResponse,
+      };
+      res.json(response);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  });
+  /**use this proc for add the user **/
+router.put("/update_vendor_password", async (req, res) => {
+    try {
+      await pool.connect();
+      console.log(req.body);
+      const result = await pool
+        .request()
+        .input("password", req.body.password)
+        .input("userid", req.body.user_id)
+        .input("vendor_id", req.body.vendor_id)
+        .execute(`Update_Vendor_Password`);
+      const homePageResponse = result.recordset;
+      const response = {
+        data: homePageResponse,
+      };
+      res.json(response);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  });
 router.get('/vendor_orders', async (req, res) => {
    
     try {
@@ -154,6 +194,35 @@ router.post('/add_vendor_product', async (req, res) => {
     }
 });
 
+
+router.put('/update_vendor_Product', async (req, res) => {
+    try {
+       
+        await pool.connect();
+        console.log(req.body)
+        const joiResponse = _validateAddVendoRequest(req.body);
+        console.log(joiResponse)
+        if(joiResponse.error){
+            console.log(req.body)
+            throw new Error(`Exception occured in validating login input, ${joiResponse.error}`);
+        }
+        
+        const result = await pool.request()
+        .input('vendor_id', req.body.vendor_id)
+        .input('sku_id', req.body.product_name)
+        .input('stock', req.body.package_of_unit)
+        .input('price', req.body.price)
+        .input('user_id', req.body.user_id)
+        .execute(`Update_vendor_Product`);
+        const homePageResponse = result.recordset;
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 const _validateSearchRequest = (input)=>{
     const schema = Joi.object().keys({
