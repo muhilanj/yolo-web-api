@@ -21,6 +21,21 @@ router.get('/vendor_dashboard', async (req, res) => {
         res.status(500).json(error);
     }
 });
+router.get('/Get_SKU_List', async (req, res) => {
+    try {
+        await pool.connect();
+        const result = await pool.request()
+        .execute(`Get_SKU_List`);
+        const homePageResponse = result.recordset;
+
+        const response = {
+            data: homePageResponse
+        }
+        res.json(response);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 router.get('/vendor_Sales', async (req, res) => {
     try {
         await pool.connect();
