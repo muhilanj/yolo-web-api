@@ -167,7 +167,6 @@ router.post("/add_advanced_property", async (req, res) => {
   try {
     await pool.connect();
     const joiResponse = _validateAdvancedPropertyRequest(req.body);
-    console.log(joiResponse);
     if (joiResponse.error) {
       console.log(req.body);
       throw new Error(
@@ -177,7 +176,6 @@ router.post("/add_advanced_property", async (req, res) => {
 
     const result = await pool
       .request()
-
       .input("property_id", req.body.property_id)
       .input("categories", req.body.categories)
       .input("status", req.body.status)
@@ -185,6 +183,7 @@ router.post("/add_advanced_property", async (req, res) => {
       .input("user_id", req.body.user_id)
       .input("images", req.body.Images)
       .input("videos", req.body.videos)
+      .input('total_floors', req.body.total_floors)
       .execute(`Add_Advanced_Property`);
     const homePageResponse = result.recordset;
     const response = {
@@ -194,6 +193,7 @@ router.post("/add_advanced_property", async (req, res) => {
     };
     res.json(response);
   } catch (error) {
+    console.log({ error }); 
     res.status(500).json(error);
   }
 });
@@ -232,6 +232,43 @@ router.post("/add_flat_details", async (req, res) => {
     };
     res.json(response);
   } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.post("/add_flats_price", async (req, res) => {
+
+  try {
+
+    console.log(req.body)
+    const result = await pool
+      .request()
+      .input("property_id", req.body.property_id)
+      .input("category_name", req.body.category_name)
+      .input("floor_number", req.body.Floor_number)
+      .input("Flat_type_id", req.body.flattypeid)
+      .input("Dimension", req.body.dimension)
+      .input("room_size", req.body.room_size)
+      .input("rent", req.body.rent)
+      .input("duration", req.body.duration)
+      .input("advance_amount", req.body.advance_amount)
+      .input("occupancy_type", req.body.occupancy_type)
+      .input("flat_facilities", req.body.flat_facilities)
+      .input("images", req.body.images)
+      .input("videos", req.body.videos)
+      .input("user_id", req.body.user_id)
+      .input('rooms', req.body.flat_number)
+      .execute(`Add_Flats_Price`);
+
+    const homePageResponse = result.recordset;
+    const response = {
+      data: homePageResponse,
+      status: 200,
+      message: "Succeefully Registered",
+    };
+    res.json(response);
+  } catch (error) {
+    console.log(error)
     res.status(500).json(error);
   }
 });
@@ -602,6 +639,7 @@ const _validateAdvancedPropertyRequest = (input) => {
     categories: Joi.string().optional().allow(null, ""),
     status: Joi.number().optional().allow(null, ""),
     user_id: Joi.number().optional().allow(null, ""),
+    total_floors: Joi.number().optional().allow(null, "")
   });
 
   return schema.validate(input, { abortEarly: false });
