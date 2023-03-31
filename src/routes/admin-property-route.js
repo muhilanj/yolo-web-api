@@ -240,19 +240,21 @@ router.post("/add_flats_price", async (req, res) => {
 
   try {
 
-    console.log(req.body)
+    // const result = await pool.query`exec Add_Flats_Price @property_id = 1, @category_name = 'Single Occupancy',  @Floor_number = 1,   
+    // @room_size = 'Small', @Dimension='8 X 6', @rooms = 'A101,A102', @rent = 1000,@duration='Monthly',   
+    // @advance_amount = 5000, @occupancy_type = 'Any',@flat_facilities = '', @images = '', @videos = '', @user_id = 1`;
+
     const result = await pool
       .request()
       .input("property_id", req.body.property_id)
       .input("category_name", req.body.category_name)
-      .input("floor_number", req.body.Floor_number)
-      .input("Flat_type_id", req.body.flattypeid)
+      .input("Floor_number", req.body.Floor_number)
       .input("Dimension", req.body.dimension)
       .input("room_size", req.body.room_size)
       .input("rent", req.body.rent)
       .input("duration", req.body.duration)
       .input("advance_amount", req.body.advance_amount)
-      .input("occupancy_type", req.body.occupancy_type)
+      .input("occupancy_type", 'Any')
       .input("flat_facilities", req.body.flat_facilities)
       .input("images", req.body.images)
       .input("videos", req.body.videos)
@@ -260,15 +262,14 @@ router.post("/add_flats_price", async (req, res) => {
       .input('rooms', req.body.flat_number)
       .execute(`Add_Flats_Price`);
 
-    const homePageResponse = result.recordset;
     const response = {
-      data: homePageResponse,
+      data: result,
       status: 200,
       message: "Succeefully Registered",
     };
     res.json(response);
   } catch (error) {
-    console.log(error)
+    console.log({ error })
     res.status(500).json(error);
   }
 });
