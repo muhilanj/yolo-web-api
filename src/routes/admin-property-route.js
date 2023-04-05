@@ -29,8 +29,8 @@ router.post("/admin_login", async (req, res) => {
     await pool.connect();
     const result = await pool
       .request()
-      .input("login_id", req.body.login_id)
-      .input("password", req.body.login_id)
+      .input("login_id", req.body.email_Id)
+      .input("password", req.body.pwd)
       .execute(`User_login_details`);
     const homePageResponse = result.recordset;
 
@@ -183,7 +183,7 @@ router.post("/add_advanced_property", async (req, res) => {
       .input("user_id", req.body.user_id)
       .input("images", req.body.Images)
       .input("videos", req.body.videos)
-      .input('total_floors', req.body.total_floors)
+      .input("total_floors", req.body.total_floors)
       .execute(`Add_Advanced_Property`);
     const homePageResponse = result.recordset;
     const response = {
@@ -193,7 +193,7 @@ router.post("/add_advanced_property", async (req, res) => {
     };
     res.json(response);
   } catch (error) {
-    console.log({ error }); 
+    console.log({ error });
     res.status(500).json(error);
   }
 });
@@ -237,11 +237,9 @@ router.post("/add_flat_details", async (req, res) => {
 });
 
 router.post("/add_flats_price", async (req, res) => {
-
   try {
-
-    // const result = await pool.query`exec Add_Flats_Price @property_id = 1, @category_name = 'Single Occupancy',  @Floor_number = 1,   
-    // @room_size = 'Small', @Dimension='8 X 6', @rooms = 'A101,A102', @rent = 1000,@duration='Monthly',   
+    // const result = await pool.query`exec Add_Flats_Price @property_id = 1, @category_name = 'Single Occupancy',  @Floor_number = 1,
+    // @room_size = 'Small', @Dimension='8 X 6', @rooms = 'A101,A102', @rent = 1000,@duration='Monthly',
     // @advance_amount = 5000, @occupancy_type = 'Any',@flat_facilities = '', @images = '', @videos = '', @user_id = 1`;
 
     const result = await pool
@@ -254,12 +252,12 @@ router.post("/add_flats_price", async (req, res) => {
       .input("rent", req.body.rent)
       .input("duration", req.body.duration)
       .input("advance_amount", req.body.advance_amount)
-      .input("occupancy_type", 'Any')
+      .input("occupancy_type", "Any")
       .input("flat_facilities", req.body.flat_facilities)
       .input("images", req.body.images)
       .input("videos", req.body.videos)
       .input("user_id", req.body.user_id)
-      .input('rooms', req.body.flat_number)
+      .input("rooms", req.body.flat_number)
       .execute(`Add_Flats_Price`);
 
     const response = {
@@ -269,7 +267,7 @@ router.post("/add_flats_price", async (req, res) => {
     };
     res.json(response);
   } catch (error) {
-    console.log({ error })
+    console.log({ error });
     res.status(500).json(error);
   }
 });
@@ -640,7 +638,7 @@ const _validateAdvancedPropertyRequest = (input) => {
     categories: Joi.string().optional().allow(null, ""),
     status: Joi.number().optional().allow(null, ""),
     user_id: Joi.number().optional().allow(null, ""),
-    total_floors: Joi.number().optional().allow(null, "")
+    total_floors: Joi.number().optional().allow(null, ""),
   });
 
   return schema.validate(input, { abortEarly: false });
