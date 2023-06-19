@@ -11,20 +11,16 @@ router.post('/partner', async (req, res) => {
     try {
        
         await pool.connect();
-        const request = await pool.request()
+        await pool.request()
         .input('name', req.body.name)
-        .input('propeerty_name', req.body.property_name)
-        .input('property_location', req.body.location)
+        .input('property_name', req.body.property_name)
+        .input('location', req.body.location)
         .input('contact_number', req.body.contact_number)
         .input('email', req.body.email)
         .input('website', req.body.website)
-        .input('propeerty_details', req.body.details)
-        const contactus_response = await request.query(`INSERT INTO partner_master
-        (name, propeerty_name, property_location, contact_number,email, website, propeerty_details) 
-        OUTPUT INSERTED.partner_id values 
-        (@name, @propeerty_name, @property_location, @contact_number, @email, @website, @propeerty_details)`);
+        .input('details', req.body.details).execute(`Add_Partner_Master`)
         const response = {
-            partner_id: contactus_response.recordsets[0][0].partner_id
+            message: 'New Partner Added Successfully'
         }
         res.json(response);
     } catch (error) {

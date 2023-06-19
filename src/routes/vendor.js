@@ -11,20 +11,14 @@ router.post('/vendor', async (req, res) => {
     try {
        
         await pool.connect();
-        const request = await pool.request()
-        .input('vendor_name', req.body.name)
+         await pool.request()
+        .input('name', req.body.name)
         .input('company_name', req.body.company_name)
         .input('contact_number', req.body.contact_number)
         .input('details', req.body.details)
-        .input('email', req.body.email)
-        .input('area_id', req.body.area_id)
-        .input('vendor_type_id', req.body.vendor_type_id)
-        const contactus_response = await request.query(`INSERT INTO vendor_master
-        (vendor_name, company_name, contact_number,email, details, area_id, vendor_type_id) 
-        OUTPUT INSERTED.vendor_id values 
-        (@vendor_name, @company_name, @contact_number, @email, @details,@area_id, @vendor_type_id)`);
+        .input('email', req.body.email).execute(`Add_Vendor`)
         const response = {
-            vendor_id: contactus_response.recordsets[0][0].vendor_id
+            message: 'New Vendor Added successfully'
         }
         res.json(response);
     } catch (error) {
