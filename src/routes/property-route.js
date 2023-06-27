@@ -22,6 +22,34 @@ router.get("/homepage", async (req, res) => {
   }
 });
 
+router.get("/property_facilities", async (req, res) => {
+  try {
+    await pool.connect();
+    const request = pool.request();
+    const result = await request.execute("Get_Property_Facilities");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.get("/room_facilities", async (req, res) => {
+  try {
+    await pool.connect();
+    const request = pool.request();
+    const result = await request.execute("Get_Room_Facilities");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.get("/property_search", async (req, res) => {
   try {
     await pool.connect();
@@ -188,6 +216,20 @@ router.get("/room_facilities", async (req, res) => {
     const homePageResponse = result.recordset;
     const response = {
       data: homePageResponse,
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+//occupancy types
+router.get("/property_type", async (req, res) => {
+  try {
+    await pool.connect();
+    const request = pool.request();
+    const result = await request.execute("Get_Occupance_Types");
+    const response = {
+      data: result.recordsets[0],
     };
     res.json(response);
   } catch (error) {
