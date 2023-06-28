@@ -227,7 +227,7 @@ router.get("/property_type", async (req, res) => {
   try {
     await pool.connect();
     const request = pool.request();
-    const result = await request.execute("Get_Occupance_Types");
+    const result = await request.execute("Get_Occupancy_Types");
     const response = {
       data: result.recordsets[0],
     };
