@@ -301,6 +301,76 @@ router.post("/add_flat_price", async (req, res) => {
   }
 });
 
+
+router.get("/basic_property_by_id/:propertyId", async (req, res) => {
+  try {
+    await pool.connect();
+    const result = await pool.request().input("property_id", req.params.propertyId).execute("Get_Basic_Property");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+router.put("/basic_property_by_id/:propertyId", async (req, res) => {
+  try {
+    await pool.connect();
+    const result = await pool.request()
+    .input("property_id", req.params.propertyId)
+    .input("property_name", req.body.property_name)
+    .input("area_id", req.body.area_id)
+    .input("phone_number", req.body.phone_number)
+    .input("email", req.body.email)
+    .input("address", req.body.address)
+    .input("property_details", req.body.property_details)
+    .input("user_id", req.body.user_id)
+    .execute("Add_Basic_Property");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.get("/advanced_property_by_id/:propertyId", async (req, res) => {
+  try {
+    await pool.connect();
+    const result = await pool.request().input("property_id", req.params.propertyId).execute("Get_Advanced_Property");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+router.put("/advanced_property_by_id/:propertyId", async (req, res) => {
+  try {
+    await pool.connect();
+    const result = await pool.request()
+    .input("property_id", req.params.propertyId)
+    .input("property_Details", req.body.property_Details)
+    .input("Images", req.body.Images)
+    .input("videos", req.body.videos)
+    .input("facilities", req.body.facilities)
+    .input("categories", req.body.categories)
+    .input("status", req.body.status)
+    .input("total_floors", req.body.total_floors)
+    .input("user_id", req.body.user_id)
+    .execute("Add_Advanced_Property");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 const _validateUserRequest = () => {
   const schema = Joi.object().keys({
     first_name: Joi.string().optional().allow(null, ""),
