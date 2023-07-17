@@ -348,7 +348,47 @@ router.get("/advanced_property_by_id/:propertyId", async (req, res) => {
     res.status(500).json(error);
   }
 });
-router.put("/advanced_property_by_id/:propertyId", async (req, res) => {
+router.get("/get_flat_Property_Facilities_by_id/:flat_id", async (req, res) => {
+  try {
+    await pool.connect();
+    const result = await pool.request().input("flat_id", req.params.flat_id).execute("get_flat_Property_Facilities_new");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+router.put("/update_flat_Property_Facilities", async (req, res) => {
+  try {
+    await pool.connect();
+    const result = await pool.request()
+    .input("property_id", req.body.property_id)
+    .input("floor_no", req.body.floor_no)
+    .input("flat_number", req.body.flat_number)
+    .input("Occupancy_Type", req.body.occupancy_Type)
+    .input("Room_Size", req.body.room_Size)
+    .input("dimension", req.body.dimension)
+    .input("unit", req.body.unit)
+    .input("total_rooms", req.body.total_rooms)
+    .input("facilities", req.body.facilities)
+    .input("images", req.body.images)
+    .input("videos", req.body.videos)
+    .input("rent", req.body.rent)
+    .input("duration", req.body.duration)
+    .input("advance_payment", req.body.advance_payment)
+    .input("userid", req.body.userid)
+    .execute("Update_flat_Property_Facilities");
+    const response = {
+      data: result.recordsets[0],
+    };
+    res.json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+router.put("/advanced_property_by_id/:flat_id", async (req, res) => {
   try {
     await pool.connect();
     const result = await pool.request()
