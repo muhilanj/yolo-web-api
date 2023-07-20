@@ -381,7 +381,7 @@ router.put("/update_flat_Property_Facilities", async (req, res) => {
     .input("userid", req.body.userid)
     .execute("Update_flat_Property_Facilities");
     const response = {
-      data: result.recordsets[0],
+      data: {message: "Updated Successfully"},
     };
     res.json(response);
   } catch (error) {
